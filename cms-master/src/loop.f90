@@ -245,8 +245,8 @@ SUBROUTINE loop(my_id, npes)
            r,n,newi,newj,newk)
          ELSE
            CALL rungakutta(ngrid,particle(r)%nlon(n),particle(r)%nlat(n), &
-           particle(r)%ndepth(n), startsec,-1, &
-           -1,1,un,vn,wn,tn,sn,rn,flag,landFlag, &
+           particle(r)%ndepth(n), startsec,-1., &
+           -1.,1,un,vn,wn,tn,sn,rn,flag,landFlag, &
            r,n,newi,newj,newk) !-1 are flags for dens and diam meaning that neither buoyany nor diffpart are being used
          ENDIF                              
 !      3) if startposition is on land, output -2 to outputfile, but only if fill_value ne 0
