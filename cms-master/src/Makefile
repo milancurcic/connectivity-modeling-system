@@ -1,6 +1,7 @@
-#
+# CMS Makefile
+# Please edit the include line to point to the correct arch file
 
-include ../arch/mpi_compiler
+include ../arch/gfortran_compiler
 
 .SUFFIXES: 
 .SUFFIXES: .cpp .c .F .f .o .f90
@@ -31,10 +32,10 @@ MODS_larva = $(MODS) mod_buoyancy_larva.o mod_mort_larva.o
 OBJS_larva = $(OBJS)
 
 cms	:	$(MODS_larva) $(OBJS_larva)
-	        $(LD) $(MODS_larva) $(OBJS_larva) $(LDFLAGS) -o cms $(EXTRALIBS)	        	       
+	        $(LD) $(MODS_larva) $(OBJS_larva) $(LDFLAGS) -o cms
 	  
 getdata :	$(MODS_getdata) $(OBJS_getdata)
-		$(LD) $(MODS_getdata) $(OBJS_getdata)  $(LDFLAGS) -o getdata $(EXTRALIBS)	        
+		$(LD) $(MODS_getdata) $(OBJS_getdata)  $(LDFLAGS) -o getdata
 	        
 cms.o: cms.f90
 getdata.o: getdata.f90

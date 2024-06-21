@@ -39,7 +39,7 @@ loopfilesendday      = 0
 !Options for saving restart files and restarting
 writerestart         = .false.
 restartfromfile      = .false.
-restartwritefreq     = 0            !in seconds
+restartwritefreq     = 1            !in seconds
 !====================================================================!
 !Options for mixed layer physics
 mixedlayerphysics    = .false.

@@ -1,22 +1,21 @@
-# Makefile
+# MPI arch file
+# Include and link paths are default for GNU compiled NetCDF on Ubuntu.
+# Edit if they are different on your system.
 
 #the Fortran compiler to create object files
 FC            = mpif90
 #the Fortran flags to create object files
-FCFLAGS      = -I/usr/local/netcdf/include -I/usr/local/include
+FCFLAGS      = -I/usr/include -cpp -D_MPI
 #the C-compiler to create object files
 CC            = gcc
 #the C flags to create object files
 CCFLAGS       = -O 
-
 #the Fortran compiler to create executable
 LD            = $(FC)
 #the Fortran flags to create executable
-LDFLAGS       = -L/usr/local/netcdf/lib -L/usr/local/lib -lnetcdf -lnetcdff -lcurl -lm
-EXTRALIBS     = 
+LDFLAGS       = -L/usr/lib/x86_64-linux-gnu -lnetcdf -lnetcdff -lcurl -lm
 
 # Rules
-
 .c.o:
 	$(CC) -c $*.c $(CCFLAGS) 
 
@@ -25,5 +24,3 @@ EXTRALIBS     =
 
 .f.o:
 	$(FC) -c $*.f $(FCFLAGS) 
-
-
