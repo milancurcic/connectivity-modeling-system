@@ -70,14 +70,16 @@ SUBROUTINE getphysicaldata(time_t, basedate)
    CALL getflnm(i,basedate,lc,fname)
   ENDIF
 
-! check if all the filenames exist 
+  ! check if all the filenames exist
   nests(i)%dataExist = .true.
-  DO fileNumber = 1,numberFiles  
-   INQUIRE(FILE=fname(UAx,fileNumber), EXIST=file_exists)
-   IF (file_exists .eqv. .false.) THEN
-    nests(i)%dataExist = .false.
-   ENDIF
-  ENDDO
+  do fileNumber = 1, numberFiles
+    inquire(file=fname(UAx, fileNumber), exist=file_exists)
+    if (.not. file_exists) then
+      nests(i)%dataExist = .false.
+      print *, "WARNING: File ", trim(fname(UAx, fileNumber)), &
+        " expected but not found."
+    end if
+  end do
 
 ! only read data from files if not done before
   IF (nests(i)%fnameold .eq. "") THEN

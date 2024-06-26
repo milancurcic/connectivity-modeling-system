@@ -110,12 +110,12 @@ SUBROUTINE getnestinfo(nest_n)
  nests(nest_n)%tend_mm = tend_mm
  nests(nest_n)%tend_dd = tend_dd
  nests(nest_n)%fill_value=fill_value
- nests(nest_n)%uname="zu"
- nests(nest_n)%vname="zv"
- nests(nest_n)%wname="zw"
- nests(nest_n)%densname="zd"
- nests(nest_n)%tempname="zt"
- nests(nest_n)%salnname="zs"
+ nests(nest_n)%uname = uvel_name
+ nests(nest_n)%vname = vvel_name
+ nests(nest_n)%wname = wvel_name
+ nests(nest_n)%densname = dens_name
+ nests(nest_n)%tempname = temp_name
+ nests(nest_n)%salnname = saln_name
  nests(nest_n)%orthogrid = orthogrid
  
  ! check if fill value is the one used by getdata
@@ -142,10 +142,10 @@ SUBROUTINE getnestinfo(nest_n)
    write(nestname,'(A,I0,A,I4.4,I2.2,I2.2,A)') &
     trim(filenest)//'nest_',nest_n,'_',tstart_yy,tstart_mm,tstart_dd,'000000.nc'
    call nc_open(trim(nestname),ncId)  
-   call nc_info_dim2(nestname,ncId,1,nests(nest_n)%idm(1))
-   call nc_info_dim2(nestname,ncId,2,nests(nest_n)%jdm(1))
-   call nc_info_dim2(nestname,ncId,3,nests(nest_n)%kdm(1))
-   call nc_info_dim2(nestname,ncId,4,nests(nest_n)%tdm)
+   call nc_info_dim(nestname, ncId, xaxis, nests(nest_n)%idm(1))
+   call nc_info_dim(nestname, ncId, yaxis, nests(nest_n)%jdm(1))
+   call nc_info_dim(nestname, ncId, zaxis, nests(nest_n)%kdm(1))
+   call nc_info_dim(nestname, ncId, taxis, nests(nest_n)%tdm)
    call nc_close(nestname, ncId)
  else ! not agrid
    allocate(nests(nest_n)%idm(4))
@@ -222,9 +222,9 @@ SUBROUTINE getnestinfo(nest_n)
    if (agrid.eqv..true.) then
      call nc_open(trim(nestname),ncId)  
      !read longitude
-     call nc_read1d(nestname, ncId,"Longitude", nests(nest_n)%lon(ax,1:nests(nest_n)%idm(ax),1), nests(nest_n)%idm(ax))
-     call nc_read1d(nestname, ncId,"Latitude", nests(nest_n)%lat(ax,1:nests(nest_n)%jdm(ax),1), nests(nest_n)%jdm(ax))
-     call nc_read1d(nestname, ncId,"Depth", nests(nest_n)%depth(ax,1:nests(nest_n)%kdm(ax)), nests(nest_n)%kdm(ax))
+     call nc_read1d(nestname, ncId, xaxis, nests(nest_n)%lon(ax,1:nests(nest_n)%idm(ax),1), nests(nest_n)%idm(ax))
+     call nc_read1d(nestname, ncId, yaxis, nests(nest_n)%lat(ax,1:nests(nest_n)%jdm(ax),1), nests(nest_n)%jdm(ax))
+     call nc_read1d(nestname, ncId, zaxis, nests(nest_n)%depth(ax,1:nests(nest_n)%kdm(ax)), nests(nest_n)%kdm(ax))
      call nc_close(nestname, ncId)
    else
      if (AxUsed(ax) .eqv. .true.) then

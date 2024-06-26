@@ -33,13 +33,13 @@ The resulting formatted nest files will be placed in a new directory: expt_getda
 Either move or create a link to the nest files in expt_example/ by typing:
 
 ```bash
-mv expt_getdata_example/nests expt_example/nests      
+mv expt_getdata_example/nests/* expt_example/nests/.
 ```
 
 or:
 
 ```bash
-ln -s expt_getdata_example/nests expt_example/nests
+ln -s expt_getdata_example/nests/* expt_example/nests/.
 ```
 
 ## Run `cms`
